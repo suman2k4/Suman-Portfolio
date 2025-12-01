@@ -22,6 +22,16 @@ export default function CertificationsSection() {
             <p className="text-xs uppercase tracking-[0.4em] text-stBlue">{cert.issuer}</p>
             <h3 className="mt-3 text-lg text-stCream">{cert.name}</h3>
             <p className="mt-2 text-stCream/60">Issued · {cert.year}</p>
+            {cert.description && <p className="mt-3 text-sm text-stCream/70">{cert.description}</p>}
+            {cert.tags && cert.tags.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2 text-[0.55rem] uppercase tracking-[0.3em] text-stCream/60">
+                {cert.tags.map((tag) => (
+                  <span key={tag} className="rounded-full border border-white/10 px-3 py-1">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
             <div className="mt-4 text-[0.6rem] uppercase tracking-[0.5em] text-stRed">Verify →</div>
           </motion.a>
         ))}

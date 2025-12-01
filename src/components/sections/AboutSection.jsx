@@ -15,10 +15,20 @@ export default function AboutSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
         >
-          <div className="aspect-square w-full rounded-xl bg-gradient-to-br from-stRed/20 via-stPurple/20 to-transparent backdrop-blur">
-            <div className="flex h-full items-center justify-center text-center text-stCream/50">
-              Portrait Placeholder
-            </div>
+          <div className="portrait-card">
+            {heroContent.portraitUrl ? (
+              <img
+                src={heroContent.portraitUrl}
+                alt={heroContent.portraitAlt || `${heroContent.name} portrait`}
+                loading="lazy"
+                className="portrait-card__img"
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center text-center text-stCream/50">
+                Portrait Placeholder
+              </div>
+            )}
+            <div className="portrait-card__glow" />
           </div>
         </motion.div>
         <motion.div

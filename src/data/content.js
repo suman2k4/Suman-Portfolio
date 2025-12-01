@@ -1,100 +1,110 @@
 export const heroContent = {
-  name: 'Suman',
-  role: 'AI / ML Engineer',
-  highlights: ['Recommender Systems', 'LLMs', 'Production ML'],
-  tagline: 'Exploring the Upside Down of Technology — Recommender Systems, LLMs, and Production ML.',
-  location: 'Tamil Nadu, India'
+  name: 'Suman S',
+  role: 'AI & Data Science Graduate',
+  highlights: ['Generative AI', 'Machine Learning', 'Python Solutions'],
+  tagline:
+    'Aspiring AI and Data Science graduate crafting applied ML, Generative AI, and automation projects for real teams.',
+  location: 'Coimbatore, Tamil Nadu',
+  portraitUrl: '/media/suman-portrait.jpg',
+  portraitAlt: 'Suman illuminated by neon red signage'
 }
 
 export const aboutContent = {
   paragraph:
-    'I craft intelligent systems that feel uncanny in the best way possible. From scaling recommender engines for millions of users to productionizing LLM-powered copilots, I merge research rigor with cinematic storytelling. Always up for bending the fabric between data, design, and delightful motion.',
-  specializations: ['Recommender Systems', 'LLMs', 'NLP Pipelines']
+    'Aspiring AI and Data Science graduate with hands-on experience across machine learning, Generative AI, and Python-based products. Built solutions like a supply chain demand forecaster, YouTube summarizer, lecture-to-notes bot, and AI-powered trading platform while sharpening collaboration, problem-solving, and time management in internships and hackathons.',
+  specializations: ['Generative AI', 'Machine Learning Engineering', 'Intelligent Automation']
 }
 
 export const experience = [
   {
-    role: 'Senior AI Engineer',
-    company: 'Nebula Labs',
-    duration: '2023 — Present',
+    role: 'AIML Engineer Intern & Scrum Master',
+    company: 'Syncner',
+    duration: 'Jul 2025 — Present',
     description:
-      'Leading a strike team modernizing personalization infra with retrieval-augmented LLMs and streaming feature stores.',
-    stack: ['Python', 'Ray', 'TensorFlow', 'Vertex AI']
+      'Learning production-grade web scraping, steering sprint rituals, and contributing to recommendation systems that improve personalization quality.',
+    stack: ['Python', 'Scrapy', 'Recommendation Systems', 'Agile']
   },
   {
-    role: 'Machine Learning Engineer',
-    company: 'Flux Media',
-    duration: '2020 — 2023',
+    role: 'Full Stack Intern',
+    company: 'Webgen Technologies',
+    duration: 'Sep 2024 — Dec 2024',
     description:
-      'Shipped a context-aware recommender that lifted session depth by 28% using graph embeddings + bandits.',
-    stack: ['PyTorch', 'DGL', 'Airflow', 'AWS']
-  },
-  {
-    role: 'Research Intern',
-    company: 'DeepVision Lab',
-    duration: '2019 — 2020',
-    description:
-      'Prototyped multi-modal models for cinematic color grading assistance and narrative search.',
-    stack: ['FastAI', 'CUDA', 'Weights & Biases']
+      'Built polished frontend utilities (calculator, login form, digital clock) while learning Git-driven collaboration and delivery cadence.',
+    stack: ['HTML', 'CSS', 'JavaScript', 'Git']
   }
 ]
 
 export const skills = [
   {
-    category: 'Programming',
+    category: 'Programming Languages',
     items: [
-      { label: 'Python', level: 0.95, note: '8 yrs' },
-      { label: 'TypeScript / JS', level: 0.8, note: '6 yrs' },
-      { label: 'C++', level: 0.6, note: '3 yrs' }
+      { label: 'Python', level: 0.92, note: 'Primary language' },
+      { label: 'HTML', level: 0.82, note: 'UI builds' },
+      { label: 'CSS', level: 0.8, note: 'Responsive layouts' },
+      { label: 'SQL', level: 0.78, note: 'Analytics' }
     ]
   },
   {
-    category: 'AI / ML',
+    category: 'Libraries & Frameworks',
     items: [
-      { label: 'PyTorch', level: 0.9, note: 'LLMs & CV' },
-      { label: 'TensorFlow', level: 0.75, note: 'Prod pipelines' },
-      { label: 'LangChain', level: 0.7, note: 'RAG systems' },
-      { label: 'Graph ML', level: 0.65, note: 'Recsys' }
+      { label: 'TensorFlow', level: 0.82, note: 'Modeling' },
+      { label: 'Keras', level: 0.8, note: 'Rapid prototyping' },
+      { label: 'NumPy / Pandas', level: 0.85, note: 'Data wrangling' },
+      { label: 'Scikit-Learn', level: 0.8, note: 'Classic ML' },
+      { label: 'Flask / Streamlit', level: 0.75, note: 'Deployment' },
+      { label: 'React.js', level: 0.7, note: 'Interactive UI' }
     ]
   },
   {
-    category: 'Tools',
+    category: 'DevOps & Tools',
     items: [
-      { label: 'Docker', level: 0.85, note: 'Ship anywhere' },
-      { label: 'MLflow', level: 0.8, note: 'Experiment ops' },
-      { label: 'Kubernetes', level: 0.65, note: 'Scaled serving' }
+      { label: 'Git & GitHub Actions', level: 0.78, note: 'Collaboration' },
+      { label: 'Docker', level: 0.72, note: 'Containerization' },
+      { label: 'DVC', level: 0.68, note: 'Data versioning' },
+      { label: 'Jupyter / VS Code', level: 0.85, note: 'Everyday IDEs' },
+      { label: 'Asana', level: 0.65, note: 'Team ops' }
     ]
   }
 ]
 
 export const projects = [
   {
-    title: 'VecFlux — LLM-Powered Discovery',
+    title: 'Listener — Lecture to Notes Bot',
     description:
-      'Semantic search + recommendation fabric that fuses embeddings, hybrid retrieval, and cinematic storytelling cues.',
-    tags: ['Next.js', 'OpenAI', 'Pinecone'],
+      'Multimodal bot that blends Whisper audio capture, OCR slide parsing, and LLM summarization to auto-create structured lecture notes; adopted by MSJ Education Academy for 20–30% faster study prep.',
+    tags: ['Whisper', 'OCR', 'LLM'],
     links: {
-      github: 'https://github.com/placeholder/vecflux',
+      github: 'https://github.com/suman2k4',
       live: '#'
     }
   },
   {
-    title: 'Neural Drive-In',
+    title: 'YTBriefAI — YouTube Summarizer',
     description:
-      'End-to-end pipeline that color grades footage with diffusion guidance and stylistic LUT synthesis.',
-    tags: ['PyTorch', 'Diffusion', 'FastAPI'],
+      'Generates concise, 90%-relevant recaps of long-form videos while boosting SEO keyword coverage by 35% and cutting review time 60%.',
+    tags: ['Generative AI', 'YouTube API', 'SEO'],
     links: {
-      github: 'https://github.com/placeholder/neural-drive-in',
+      github: 'https://github.com/suman2k4',
       live: '#'
     }
   },
   {
-    title: 'Signal Lantern',
+    title: 'AI-Powered Trading Platform',
     description:
-      'Production-ready monitoring kit for ML feature drift with neon dashboards and alerting.',
-    tags: ['React', 'D3.js', 'Kafka'],
+      'Backtests ML-driven trading signals that exceed 70% prediction accuracy and executes under 100ms to rebalance portfolios 25% faster.',
+    tags: ['Python', 'ML', 'FinTech'],
     links: {
-      github: 'https://github.com/placeholder/signal-lantern',
+      github: 'https://github.com/suman2k4',
+      live: '#'
+    }
+  },
+  {
+    title: 'Supply Chain Demand Forecasting',
+    description:
+      'ARIMA, Prophet, and LSTM ensemble that improves forecast accuracy 15% and automates planning via Streamlit + Flask, reducing cycle time 40%.',
+    tags: ['Time Series', 'Streamlit', 'Forecasting'],
+    links: {
+      github: 'https://github.com/suman2k4',
       live: '#'
     }
   }
@@ -102,21 +112,75 @@ export const projects = [
 
 export const certifications = [
   {
-    name: 'TensorFlow Developer Certificate',
-    issuer: 'Google',
+    name: 'Microsoft Azure AI Fundamentals (AI-900)',
+    issuer: 'Microsoft',
     year: '2024',
-    link: 'https://google.com'
+    link: '/Certificates/Azure%20AI%20Fundamentals.pdf',
+    tags: ['AI', 'Cloud', 'Azure'],
+    description:
+      'Foundational certification on Azure AI spanning ML concepts, cognitive services, CV, NLP, and responsible AI practices.'
   },
   {
-    name: 'Deep Reinforcement Learning Nanodegree',
-    issuer: 'Udacity',
-    year: '2022',
-    link: 'https://udacity.com'
+    name: 'Databases and SQL for Data Science',
+    issuer: 'IBM / Coursera',
+    year: 'Nov 2025',
+    link: '/Certificates/IBM%20Database%20and%20Sql.pdf',
+    tags: ['SQL', 'Data Science'],
+    description:
+      'Hands-on SQL labs covering filtering, joins, subqueries, views, DDL/DML, and schema design for analytics workloads.'
   },
   {
-    name: 'Generative AI with Large Language Models',
-    issuer: 'Coursera',
-    year: '2021',
-    link: 'https://coursera.org'
+    name: 'Data Science Methodology',
+    issuer: 'IBM / Coursera',
+    year: 'Nov 2025',
+    link: '/Certificates/IBM%20Data%20Science%20Methodology.pdf',
+    tags: ['Data Science', 'Methodology'],
+    description:
+      'End-to-end CRISP-DM framing: define business problems, prep data, build, evaluate, and deploy models responsibly.'
+  },
+  {
+    name: 'Tools for Data Science',
+    issuer: 'IBM / Coursera',
+    year: 'Nov 2025',
+    link: '/Certificates/IBM%20Tools%20for%20Data%20Science%20V2.pdf',
+    tags: ['Data Science Tools'],
+    description:
+      'Introduces professional DS tooling—Jupyter, Git, RStudio, Watson Studio, Anaconda—and collaborative workflows.'
+  },
+  {
+    name: 'Crash Course on Python',
+    issuer: 'Google / Coursera',
+    year: 'Jul 2025',
+    link: '/Certificates/Google%20crash%20course%20on%20python.pdf',
+    tags: ['Python', 'Programming Foundations'],
+    description:
+      'Python fundamentals: loops, functions, data structures, automation concepts, and scripting for beginner-to-intermediate builders.'
+  },
+  {
+    name: 'Python for Data Science and AI',
+    issuer: 'IBM / Coursera',
+    year: 'Jul 2025',
+    link: '/Certificates/IBM%20Python%20for%20Data%20Science%20and%20AI.pdf',
+    tags: ['Python', 'Data Science', 'AI'],
+    description:
+      'Practical Python for DS & AI: pandas, NumPy, visualization, and core ML concepts for end-to-end workflows.'
+  },
+  {
+    name: 'Python Project for Data Science',
+    issuer: 'IBM / Coursera',
+    year: 'Jul 2025',
+    link: '/Certificates/IBM%20Python%20Project%20for%20Data%20Science.pdf',
+    tags: ['Python', 'Project', 'Data Science'],
+    description:
+      'Capstone applying Python to collect, wrangle, analyze, and visualize real datasets to generate actionable insights.'
+  },
+  {
+    name: 'Machine Learning A-Z: AI, Python & R + ChatGPT Prize [2025]',
+    issuer: 'Udemy',
+    year: 'Apr 2025',
+    link: '/Certificates/Udemy.pdf',
+    tags: ['Machine Learning', 'AI', 'Python', 'R'],
+    description:
+      '43-hour masterclass spanning supervised + unsupervised ML, preprocessing, evaluation, clustering, automation, and GPT-integrated workflows.'
   }
 ]

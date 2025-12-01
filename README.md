@@ -20,7 +20,7 @@ npm run preview
 
 ## Customize Content
 - Update profile copy, experiences, skills, projects, and certifications in `src/data/content.js`.
-- Replace the portrait placeholder in `AboutSection.jsx` with a real image or `<img>` tag.
+- Drop your portrait image at `public/media/suman-portrait.jpg` (or update the `heroContent.portraitUrl` in `src/data/content.js` to match your preferred path) for the About section card.
 - Adjust neon palette, fonts, and utilities via `tailwind.config.cjs` + `src/index.css`.
 
 ## Features

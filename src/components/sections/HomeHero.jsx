@@ -1,33 +1,65 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import NeonButton from '../ui/NeonButton'
-import UpsideDownScene from '../visuals/UpsideDownScene'
 import { heroContent } from '../../data/content'
 import { scrollToId } from '../../utils/scroll'
 
 export default function HomeHero() {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
+  const [enableParallax, setEnableParallax] = useState(false)
   const springX = useSpring(mouseX, { stiffness: 40, damping: 12 })
   const springY = useSpring(mouseY, { stiffness: 40, damping: 12 })
   const moveX = useTransform(springX, [-200, 200], [-15, 15])
   const moveY = useTransform(springY, [-200, 200], [-15, 15])
 
   useEffect(() => {
+    const pointerQuery = window.matchMedia('(pointer: fine)')
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+    const evaluate = () => {
+      setEnableParallax(pointerQuery.matches && !motionQuery.matches)
+    }
+
+    evaluate()
+    pointerQuery.addEventListener('change', evaluate)
+    motionQuery.addEventListener('change', evaluate)
+
+    return () => {
+      pointerQuery.removeEventListener('change', evaluate)
+      motionQuery.removeEventListener('change', evaluate)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!enableParallax) {
+      mouseX.set(0)
+      mouseY.set(0)
+      return undefined
+    }
+
     const handleMove = (event) => {
       mouseX.set(event.clientX - window.innerWidth / 2)
       mouseY.set(event.clientY - window.innerHeight / 2)
     }
-    window.addEventListener('pointermove', handleMove)
-    return () => window.removeEventListener('pointermove', handleMove)
-  }, [mouseX, mouseY])
+    let rafId
+    const throttled = (event) => {
+      if (rafId) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(() => handleMove(event))
+    }
+    window.addEventListener('pointermove', throttled, { passive: true })
+    return () => {
+      window.removeEventListener('pointermove', throttled)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
+  }, [enableParallax, mouseX, mouseY])
 
   return (
-    <section id="home" className="relative flex min-h-screen items-center pt-24">
-      <UpsideDownScene />
-      <div className="grain-overlay" />
-      <div className="vignette-overlay" />
-      <motion.div style={{ x: moveX, y: moveY }} className="absolute inset-0 -z-10 opacity-30">
+    <section id="home" className="relative flex min-h-screen items-start md:items-center pt-10 md:pt-20">
+      <motion.div
+        style={enableParallax ? { x: moveX, y: moveY } : undefined}
+        className="absolute inset-0 -z-10 opacity-30"
+      >
         <div className="h-full w-full bg-[radial-gradient(circle_at_top,_rgba(229,9,20,0.25),_transparent_55%)]" />
       </motion.div>
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center md:text-left">
