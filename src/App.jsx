@@ -9,8 +9,7 @@ import SkillsSection from './components/sections/SkillsSection'
 import ProjectsSection from './components/sections/ProjectsSection'
 import CertificationsSection from './components/sections/CertificationsSection'
 import ContactSection from './components/sections/ContactSection'
-import StrangerBackground from './components/visuals/StrangerBackground'
-import UpsideDownScene from './components/visuals/UpsideDownScene'
+import SnowfallBackground from './components/visuals/SnowfallBackground'
 import PortalLoader from './components/PortalLoader'
 
 export default function App() {
@@ -46,20 +45,32 @@ export default function App() {
 
   const isUpsideDown = themeMode === 'upside-down'
 
+  // Theme-specific snowfall colors
+  const snowfallConfig = isUpsideDown
+    ? {
+        particleCount: 150,
+        speed: 1,
+        wind: 0.8,
+        glowColor: 'rgba(76, 201, 240, 0.2)',
+      }
+    : {
+        particleCount: 150,
+        speed: 1,
+        wind: 1,
+        glowColor: 'rgba(229, 9, 20, 0.15)',
+      }
+
   return (
     <div className={`app-shell ${isUpsideDown ? 'theme-upside' : ''}`}>
       <AnimatePresence>
         {showLoader && <PortalLoader key="portal-loader" onFinish={() => setShowLoader(false)} />}
       </AnimatePresence>
       <Navbar themeMode={themeMode} onToggleTheme={toggleTheme} />
-      <div className={`background-stage ${isUpsideDown ? 'background-stage--upside' : 'background-stage--normal'}`}>
-        <StrangerBackground />
-        <UpsideDownScene />
-      </div>
+      <SnowfallBackground key={themeMode} {...snowfallConfig} />
       <div className="grain-overlay" />
       <div className="glitch-overlay" />
       <div className="vignette-overlay" />
-      <main className="relative z-10 mx-auto max-w-6xl px-6 pt-32 pb-24">
+      <main className="relative z-10 mx-auto max-w-6xl px-6 pt-0 pb-24">
         {sections}
         <Footer />
       </main>

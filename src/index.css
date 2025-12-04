@@ -24,9 +24,8 @@ body {
 .app-shell {
   position: relative;
   overflow-x: hidden;
-  background: radial-gradient(circle at 20% 20%, rgba(229, 9, 20, 0.15), transparent 55%),
-    radial-gradient(circle at 60% 10%, rgba(91, 43, 255, 0.15), transparent 45%),
-    #050507;
+  /* Global red + black gradient theme background */
+  background: linear-gradient(180deg, rgba(229, 9, 20, 0.25) 0%, rgba(5, 5, 7, 1) 60%, rgba(5, 5, 7, 1) 100%);
 }
 
 .app-shell.theme-upside {
@@ -142,7 +141,7 @@ body {
 
 .stranger-spore {
   position: absolute;
-  bottom: -20px;
+  top: -20px;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(229, 9, 20, 0.2));
   border-radius: 999px;
   opacity: 0.45;
@@ -447,6 +446,31 @@ body {
     box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4);
   }
 
+  /* Vintage border frame effect for hero section */
+  #home {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    border-left: 12px solid rgba(0, 0, 0, 0.95);
+    border-right: 12px solid rgba(0, 0, 0, 0.95);
+    border-top: 12px solid rgba(0, 0, 0, 0.95);
+    border-bottom: 12px solid rgba(0, 0, 0, 0.95);
+    box-shadow: 
+      inset 0 0 0 2px rgba(255, 255, 255, 0.1),
+      inset 0 0 30px rgba(229, 9, 20, 0.15);
+  }
+
+  #home::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: 1px solid rgba(229, 9, 20, 0.3);
+    box-shadow: 
+      inset 0 0 40px rgba(229, 9, 20, 0.1),
+      0 0 60px rgba(229, 9, 20, 0.15);
+  }
+
   .section-title::after {
     content: '';
     display: block;
@@ -584,17 +608,17 @@ body {
 
 @keyframes sporeDrift {
   0% {
-    transform: translate3d(0, 0, 0) scale(var(--spore-scale, 0.8));
+    transform: translate3d(var(--drift-x, 0), -100px, 0) scale(var(--spore-scale, 0.8));
     opacity: 0;
   }
-  15% {
+  5% {
     opacity: 0.45;
   }
-  70% {
-    opacity: 0.35;
+  85% {
+    opacity: 0.4;
   }
   100% {
-    transform: translate3d(var(--drift-x, 0), -120vh, 0) scale(calc(var(--spore-scale, 0.8) * 1.1));
+    transform: translate3d(var(--drift-x, 0), 105vh, 0) scale(calc(var(--spore-scale, 0.8) * 0.95));
     opacity: 0;
   }
 }
