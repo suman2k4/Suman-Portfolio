@@ -33,7 +33,6 @@ body {
   background: radial-gradient(circle at 10% 10%, rgba(48, 86, 211, 0.25), transparent 60%),
     radial-gradient(circle at 70% 20%, rgba(91, 43, 255, 0.2), transparent 50%),
     #03050f;
-  filter: hue-rotate(-12deg) saturate(1.05);
 }
 
 .background-stage {
@@ -215,6 +214,7 @@ body {
   background: linear-gradient(120deg, rgba(229, 9, 20, 0.5), transparent);
   filter: blur(10px);
 }
+
 .bolt::before {
   content: '';
   position: absolute;
@@ -535,17 +535,28 @@ body {
     animation: sweep 6s linear infinite;
   }
 
-  .terminal-block > * {
+  .terminal-block>* {
     position: relative;
     z-index: 1;
   }
 }
 
 @keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
     opacity: 1;
   }
-  20%, 24%, 55% {
+
+  20%,
+  24%,
+  55% {
     opacity: 0.5;
   }
 }
@@ -554,6 +565,7 @@ body {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(100%);
   }
@@ -564,6 +576,7 @@ body {
     opacity: 0.6;
     transform: scale(1);
   }
+
   100% {
     opacity: 0.9;
     transform: scale(1.05);
@@ -574,9 +587,11 @@ body {
   0% {
     transform: translate3d(-5%, 0, 0);
   }
+
   50% {
     transform: translate3d(8%, 2%, 0);
   }
+
   100% {
     transform: translate3d(-5%, 0, 0);
   }
@@ -587,12 +602,15 @@ body {
     transform: translate3d(0, 0, 0) scale(var(--spore-scale, 0.8));
     opacity: 0;
   }
+
   15% {
     opacity: 0.45;
   }
+
   70% {
     opacity: 0.35;
   }
+
   100% {
     transform: translate3d(var(--drift-x, 0), -120vh, 0) scale(calc(var(--spore-scale, 0.8) * 1.1));
     opacity: 0;
@@ -600,49 +618,60 @@ body {
 }
 
 @keyframes lightningFlash {
+
   0%,
   10%,
   100% {
     opacity: 0;
   }
+
   12% {
     opacity: 0.85;
   }
+
   13% {
     opacity: 0.25;
   }
+
   14% {
+    opacity: 0.9;
+  }
+
+  18% {
+    opacity: 0.1;
+  }
+
+  40% {
+    opacity: 0;
+  }
+}
 
 @keyframes hawkinsLightning {
+
   0%,
   80% {
     opacity: 0;
     transform: translateY(-12%) scaleX(0.5);
   }
+
   83% {
     opacity: 0.45;
     transform: translateY(-4%) scaleX(0.8);
   }
+
   85% {
     opacity: 0.85;
     transform: translateY(0) scaleX(1);
   }
+
   88% {
     opacity: 0.2;
     transform: translateY(8%) scaleX(0.6);
   }
+
   100% {
     opacity: 0;
     transform: translateY(12%) scaleX(0.4);
-  }
-}
-    opacity: 0.9;
-  }
-  18% {
-    opacity: 0.1;
-  }
-  40% {
-    opacity: 0;
   }
 }
 
@@ -651,14 +680,17 @@ body {
     opacity: 0;
     transform: scaleX(0.4);
   }
+
   35% {
     opacity: 0.9;
     transform: scaleX(1);
   }
+
   70% {
     opacity: 0.3;
     transform: scaleX(0.7);
   }
+
   100% {
     opacity: 0;
     transform: scaleX(0.2);
@@ -669,9 +701,11 @@ body {
   0% {
     opacity: 0.08;
   }
+
   50% {
     opacity: 0.18;
   }
+
   100% {
     opacity: 0.08;
   }
@@ -681,9 +715,11 @@ body {
   0% {
     filter: saturate(1);
   }
+
   50% {
     filter: saturate(1.25);
   }
+
   100% {
     filter: saturate(1);
   }
@@ -694,9 +730,11 @@ body {
     transform: scaleX(0.1);
     opacity: 0;
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     transform: scaleX(1);
     opacity: 1;
@@ -708,9 +746,11 @@ body {
     transform: scaleY(0.1);
     opacity: 0;
   }
+
   60% {
     opacity: 1;
   }
+
   100% {
     transform: scaleY(1);
     opacity: 1;
@@ -718,16 +758,19 @@ body {
 }
 
 @keyframes taglineFlicker {
+
   0%,
   30%,
   55%,
   100% {
     opacity: 0.85;
   }
+
   32%,
   57% {
     opacity: 0.4;
   }
+
   35%,
   60% {
     opacity: 1;
@@ -738,15 +781,18 @@ body {
   0% {
     opacity: 0;
   }
+
   20% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .portal-loader,
   .portal-loader * {
     animation: none !important;

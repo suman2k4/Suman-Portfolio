@@ -11,8 +11,8 @@ export default function ThemeToggle({ mode, onToggle }) {
       whileTap={{ scale: 0.95 }}
     >
       <span className="text-stCream/70">Mode</span>
-      <span className={`font-semibold ${isUpsideDown ? 'text-stPurple' : 'text-stRed'}`}>
-        {isUpsideDown ? 'Upside Down' : 'Normal'}
+      <span className={`font-semibold ${isUpsideDown ? 'text-stBlue' : 'text-stRed'}`}>
+        {isUpsideDown ? 'Blue' : 'Red'}
       </span>
       <span className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-stRed/20 via-transparent to-stBlue/20 blur-xl" />
     </motion.button>
@@ -20,6 +20,6 @@ export default function ThemeToggle({ mode, onToggle }) {
 }
 
 ThemeToggle.propTypes = {
-  mode: PropTypes.oneOf(['normal', 'upside-down']).isRequired,
+  mode: PropTypes.oneOf(['upside-down', 'normal']).isRequired,
   onToggle: PropTypes.func.isRequired
 }

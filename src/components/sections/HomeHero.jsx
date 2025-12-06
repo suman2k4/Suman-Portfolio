@@ -55,7 +55,7 @@ export default function HomeHero() {
   }, [enableParallax, mouseX, mouseY])
 
   return (
-    <section id="home" className="relative flex min-h-screen items-start md:items-center pt-10 md:pt-20">
+    <section id="home" className="relative flex min-h-[100vh] items-center justify-center">
       <motion.div
         style={enableParallax ? { x: moveX, y: moveY } : undefined}
         className="absolute inset-0 -z-10 opacity-30"

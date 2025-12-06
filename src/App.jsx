@@ -59,7 +59,7 @@ export default function App() {
       <div className="grain-overlay" />
       <div className="glitch-overlay" />
       <div className="vignette-overlay" />
-      <main className="relative z-10 mx-auto max-w-6xl px-6 pt-32 pb-24">
+      <main className="relative z-10 mx-auto max-w-6xl px-6 pb-24">
         {sections}
         <Footer />
       </main>
