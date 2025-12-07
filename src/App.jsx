@@ -51,7 +51,7 @@ export default function App() {
       <AnimatePresence>
         {showLoader && <PortalLoader key="portal-loader" onFinish={() => setShowLoader(false)} />}
       </AnimatePresence>
-      <Navbar themeMode={themeMode} onToggleTheme={toggleTheme} />
+      {!showLoader && <Navbar themeMode={themeMode} onToggleTheme={toggleTheme} />}
       <div className={`background-stage ${isUpsideDown ? 'background-stage--upside' : 'background-stage--normal'}`}>
         <StrangerBackground />
         <UpsideDownScene />
