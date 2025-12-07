@@ -19,7 +19,7 @@ export default function CertificationsSection() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.8, delay: idx * 0.05 }}
           >
-            <p className="text-xs uppercase tracking-[0.4em] text-stBlue">{cert.issuer}</p>
+            <p className="text-xs uppercase tracking-[0.4em] theme-text-accent">{cert.issuer}</p>
             <h3 className="mt-3 text-lg text-stCream">{cert.name}</h3>
             <p className="mt-2 text-stCream/60">Issued · {cert.year}</p>
             {cert.description && <p className="mt-3 text-sm text-stCream/70">{cert.description}</p>}
@@ -32,7 +32,7 @@ export default function CertificationsSection() {
                 ))}
               </div>
             )}
-            <div className="mt-4 text-[0.6rem] uppercase tracking-[0.5em] text-stRed">Verify →</div>
+            <div className="mt-4 text-[0.6rem] uppercase tracking-[0.5em] verify-link">Verify →</div>
           </motion.a>
         ))}
       </div>

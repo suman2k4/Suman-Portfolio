@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 export default function NeonButton({ children, variant = 'primary', onClick, href }) {
   const baseClasses =
-    'neon-button rounded-full border border-white/15 shadow-neon transition-all duration-300'
+    'neon-button rounded-full border border-white/15 neon-button-shadow transition-all duration-300'
   const palette =
     variant === 'ghost'
       ? 'bg-black/30 text-stCream'
-      : 'bg-stRed text-white'
+      : 'neon-btn-primary'
 
   if (href) {
     return (

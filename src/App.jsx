@@ -20,14 +20,14 @@ export default function App() {
   const sections = useMemo(
     () => [
       <HomeHero key="home" />,
-      <AboutSection key="about" />,
+      <AboutSection key="about" themeMode={themeMode} />,
       <ExperienceSection key="experience" />,
       <SkillsSection key="skills" />,
       <ProjectsSection key="projects" />,
       <CertificationsSection key="certifications" />,
       <ContactSection key="contact" />
     ],
-    []
+    [themeMode]
   )
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function App() {
       <AnimatePresence>
         {showLoader && <PortalLoader key="portal-loader" onFinish={() => setShowLoader(false)} />}
       </AnimatePresence>
-      <Navbar themeMode={themeMode} onToggleTheme={toggleTheme} />
+      {!showLoader && <Navbar themeMode={themeMode} onToggleTheme={toggleTheme} />}
       <div className={`background-stage ${isUpsideDown ? 'background-stage--upside' : 'background-stage--normal'}`}>
         <StrangerBackground />
         <UpsideDownScene />

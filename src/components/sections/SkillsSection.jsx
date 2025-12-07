@@ -16,7 +16,7 @@ export default function SkillsSection() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-sm uppercase tracking-[0.4em] text-stBlue">{group.category}</p>
+            <p className="text-sm uppercase tracking-[0.4em] theme-text-accent">{group.category}</p>
             <div className="mt-5 space-y-4">
               {group.items.map((skill) => (
                 <div key={skill.label} className="space-y-1">

@@ -30,9 +30,9 @@ body {
 }
 
 .app-shell.theme-upside {
-  background: radial-gradient(circle at 10% 10%, rgba(48, 86, 211, 0.25), transparent 60%),
-    radial-gradient(circle at 70% 20%, rgba(91, 43, 255, 0.2), transparent 50%),
-    #03050f;
+  background: radial-gradient(circle at 10% 10%, rgba(229, 9, 20, 0.25), transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(229, 9, 20, 0.2), transparent 50%),
+    #050101;
 }
 
 .background-stage {
@@ -180,7 +180,7 @@ body {
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 60% 20%, rgba(76, 201, 240, 0.2), transparent 60%),
-    radial-gradient(circle at 20% 60%, rgba(229, 9, 20, 0.18), transparent 55%);
+    radial-gradient(circle at 20% 60%, rgba(48, 86, 211, 0.25), transparent 55%);
   filter: blur(25px);
   animation: fogDrift 22s linear infinite;
 }
@@ -195,7 +195,7 @@ body {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, rgba(124, 209, 255, 0) 0%, rgba(124, 209, 255, 0.9) 45%, rgba(229, 9, 20, 0.75) 100%);
+  background: linear-gradient(180deg, rgba(124, 209, 255, 0) 0%, rgba(124, 209, 255, 0.9) 45%, rgba(48, 86, 211, 0.75) 100%);
   box-shadow: 0 0 30px rgba(124, 209, 255, 0.85);
   opacity: 0;
   mix-blend-mode: screen;
@@ -211,7 +211,7 @@ body {
   right: -8px;
   top: 30%;
   height: 25%;
-  background: linear-gradient(120deg, rgba(229, 9, 20, 0.5), transparent);
+  background: linear-gradient(120deg, rgba(48, 86, 211, 0.5), transparent);
   filter: blur(10px);
 }
 
@@ -234,7 +234,40 @@ body {
 }
 
 .theme-upside .neon-button::after {
-  background: linear-gradient(135deg, rgba(48, 86, 211, 0.8), rgba(229, 9, 20, 0.6));
+  background: linear-gradient(135deg, rgba(48, 86, 211, 0.8), rgba(76, 201, 240, 0.6));
+}
+
+.theme-upside .neon-frame {
+  background: radial-gradient(circle, rgba(48, 86, 211, 0.35), transparent 70%);
+  border-color: rgba(48, 86, 211, 0.4);
+  box-shadow: 0 0 25px rgba(48, 86, 211, 0.45);
+}
+
+.theme-upside .neon-button:hover {
+  box-shadow: 0 10px 25px rgba(48, 86, 211, 0.4);
+}
+
+.theme-upside .section-title::after {
+  background: linear-gradient(90deg, rgba(48, 86, 211, 0.2), rgba(48, 86, 211, 0.9), transparent);
+}
+
+.theme-upside .portrait-card {
+  background: radial-gradient(circle at 30% 20%, rgba(48, 86, 211, 0.2), transparent 60%),
+    radial-gradient(circle at 70% 40%, rgba(76, 201, 240, 0.15), transparent 55%),
+    rgba(3, 5, 15, 0.85);
+}
+
+.theme-upside .portrait-card__glow {
+  background: radial-gradient(circle, rgba(48, 86, 211, 0.35), transparent 65%);
+}
+
+.theme-upside .title-outline {
+  -webkit-text-stroke: 2px rgba(48, 86, 211, 0.9);
+  text-shadow: 0 0 18px rgba(48, 86, 211, 0.85);
+}
+
+.theme-upside .glitch::after {
+  color: #4cc9f0;
 }
 
 .grain-overlay,
@@ -798,4 +831,85 @@ body {
     animation: none !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Dynamic Theme Overrides */
+.hero-glow {
+  background: radial-gradient(circle at top, rgba(229, 9, 20, 0.25), transparent 55%);
+}
+
+.theme-upside .hero-glow {
+  background: radial-gradient(circle at top, rgba(48, 86, 211, 0.25), transparent 55%);
+}
+
+.input-field {
+  @apply rounded-md border border-white/10 bg-white/5 px-4 py-3 text-base text-white focus:outline-none;
+  border-color: rgba(255, 255, 255, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #e50914;
+}
+
+.theme-upside .input-field:focus {
+  border-color: #3056d3;
+}
+
+.contact-btn {
+  @apply mt-8 w-full rounded-full border px-8 py-4 text-sm uppercase tracking-[0.6em] text-white;
+  background-color: #e50914;
+  border-color: rgba(229, 9, 20, 0.6);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.55);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-btn:hover {
+  box-shadow: 0 0 35px rgba(229, 9, 20, 0.7);
+}
+
+.theme-upside .contact-btn {
+  background-color: #3056d3;
+  border-color: rgba(48, 86, 211, 0.6);
+  box-shadow: 0 0 20px rgba(48, 86, 211, 0.5);
+}
+
+.theme-upside .contact-btn:hover {
+  box-shadow: 0 0 35px rgba(48, 86, 211, 0.7);
+}
+
+.neon-btn-primary {
+  background-color: #e50914;
+  color: #ffffff;
+}
+
+.theme-upside .neon-btn-primary {
+  background-color: #3056d3;
+}
+
+.verify-link {
+  color: #e50914;
+  transition: color 0.3s ease;
+}
+
+.theme-upside .verify-link {
+  color: #3056d3;
+}
+
+.theme-text-accent {
+  color: #e50914;
+  transition: color 0.3s ease;
+}
+
+.theme-upside .theme-text-accent {
+  color: #3056d3;
+}
+
+.theme-text-status {
+  color: #e50914;
+  transition: color 0.3s ease;
+}
+
+.theme-upside .theme-text-status {
+  color: #3056d3;
 }

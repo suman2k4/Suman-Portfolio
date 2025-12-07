@@ -23,7 +23,7 @@ export default function ExperienceSection() {
             className="glass-panel border border-white/5 p-6 transition hover:border-stRed/40"
           >
             <div className="mb-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-              <p className="text-sm uppercase tracking-[0.4em] text-stBlue">{item.duration}</p>
+              <p className="text-sm uppercase tracking-[0.4em] theme-text-accent">{item.duration}</p>
               <p className="text-xs text-stCream/60">{item.company}</p>
             </div>
             <h3 className="text-xl text-stCream">{item.role}</h3>

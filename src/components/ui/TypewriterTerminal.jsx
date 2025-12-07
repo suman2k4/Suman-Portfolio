@@ -5,6 +5,7 @@ export default function TypewriterTerminal({ lines }) {
   const [displayed, setDisplayed] = useState([])
 
   useEffect(() => {
+    setDisplayed([])
     let timeout
     let index = 0
     const reveal = () => {
@@ -14,13 +15,13 @@ export default function TypewriterTerminal({ lines }) {
         timeout = setTimeout(reveal, 600)
       }
     }
-    reveal()
+    timeout = setTimeout(reveal, 100)
     return () => clearTimeout(timeout)
   }, [lines])
 
   return (
     <div className="terminal-block text-stCream/80">
-      <div className="text-stRed mb-2">{'>'} STATUS :: ONLINE</div>
+      <div className="theme-text-status mb-2">{'>'} STATUS :: ONLINE</div>
       {displayed.map((line, idx) => (
         <p key={line + idx} className="pb-1">
           <span className="text-stBlue">$</span> {line}

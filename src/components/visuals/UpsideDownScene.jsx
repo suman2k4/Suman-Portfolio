@@ -17,10 +17,10 @@ export default function UpsideDownScene() {
         eventSource={document.body}
         eventPrefix="client"
       >
-        <color attach="background" args={['#01030a']} />
+        <color attach="background" args={['#050101']} />
         <ambientLight intensity={0.25} />
         <pointLight position={[2, 2, 2]} intensity={0.7} color="#83d8ff" />
-        <pointLight position={[-3, -1, -2]} intensity={0.5} color="#ff1a3c" />
+        <pointLight position={[-3, -1, -2]} intensity={0.5} color="#3056d3" />
 
         <InteractiveParticles count={440} size={0.082} color="#ff9eb5" spread={[10, 5, 7]} />
         <InteractiveParticles count={340} size={0.062} color="#7dd3fc" spread={[12, 6, 10]} />
