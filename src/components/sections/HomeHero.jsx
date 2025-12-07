@@ -60,11 +60,11 @@ export default function HomeHero() {
         style={enableParallax ? { x: moveX, y: moveY } : undefined}
         className="absolute inset-0 -z-10 opacity-30"
       >
-        <div className="h-full w-full bg-[radial-gradient(circle_at_top,_rgba(229,9,20,0.25),_transparent_55%)]" />
+        <div className="h-full w-full hero-glow" />
       </motion.div>
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center md:text-left">
         <motion.p
-          className="text-sm uppercase tracking-[0.6em] text-stBlue"
+          className="text-sm uppercase tracking-[0.6em] text-white"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 0.9, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}

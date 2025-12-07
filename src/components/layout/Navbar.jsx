@@ -75,7 +75,7 @@ export default function Navbar({ themeMode, onToggleTheme }) {
           <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:flex-none lg:mr-12">
             <button
               onClick={() => scrollToId('home')}
-              className="font-display text-lg tracking-[0.2em] text-stRed title-outline"
+              className={`font-display text-lg tracking-[0.2em] title-outline ${themeMode === 'upside-down' ? 'text-stBlue' : 'text-stRed'}`}
             >
               SUMAN
             </button>

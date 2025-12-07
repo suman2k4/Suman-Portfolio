@@ -20,14 +20,14 @@ export default function App() {
   const sections = useMemo(
     () => [
       <HomeHero key="home" />,
-      <AboutSection key="about" />,
+      <AboutSection key="about" themeMode={themeMode} />,
       <ExperienceSection key="experience" />,
       <SkillsSection key="skills" />,
       <ProjectsSection key="projects" />,
       <CertificationsSection key="certifications" />,
       <ContactSection key="contact" />
     ],
-    []
+    [themeMode]
   )
 
   useEffect(() => {

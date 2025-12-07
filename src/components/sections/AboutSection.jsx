@@ -1,9 +1,23 @@
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
+import PropTypes from 'prop-types'
 import { aboutContent, heroContent } from '../../data/content'
 import SectionTitle from '../ui/SectionTitle'
 import TypewriterTerminal from '../ui/TypewriterTerminal'
 
-export default function AboutSection() {
+export default function AboutSection({ themeMode }) {
+  const portraitSrc =
+    themeMode === 'upside-down' ? '/media/suman-portrait-blue.jpeg' : heroContent.portraitUrl
+
+  const terminalLines = useMemo(
+    () => [
+      `ROLE: ${heroContent.role}`,
+      `LOCATION: ${heroContent.location}`,
+      `SPECIALIZATION: ${aboutContent.specializations.join(' | ')}`
+    ],
+    []
+  )
+
   return (
     <section id="about" className="py-24">
       <SectionTitle label="Chapter 01" subtitle="About the Explorer" />
@@ -16,9 +30,9 @@ export default function AboutSection() {
           transition={{ duration: 0.9 }}
         >
           <div className="portrait-card">
-            {heroContent.portraitUrl ? (
+            {portraitSrc ? (
               <img
-                src={heroContent.portraitUrl}
+                src={portraitSrc}
                 alt={heroContent.portraitAlt || `${heroContent.name} portrait`}
                 loading="lazy"
                 className="portrait-card__img"
@@ -39,13 +53,7 @@ export default function AboutSection() {
           className="space-y-6"
         >
           <p className="text-lg text-stCream/80">{aboutContent.paragraph}</p>
-          <TypewriterTerminal
-            lines={[
-              `ROLE: ${heroContent.role}`,
-              `LOCATION: ${heroContent.location}`,
-              `SPECIALIZATION: ${aboutContent.specializations.join(' | ')}`
-            ]}
-          />
+          <TypewriterTerminal lines={terminalLines} />
         </motion.div>
       </div>
     </section>
