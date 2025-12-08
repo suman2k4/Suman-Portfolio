@@ -318,24 +318,6 @@ body {
   pointer-events: none;
 }
 
-.portal-loader__gradient {
-  background: radial-gradient(circle at 50% 45%, rgba(229, 9, 20, 0.38), transparent 65%),
-    radial-gradient(circle at 50% 80%, rgba(229, 9, 20, 0.18), transparent 75%),
-    #050109;
-  animation: portalPulse 4.5s ease-in-out infinite;
-}
-
-.portal-loader__vignette {
-  background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.9) 85%);
-}
-
-.portal-loader__noise {
-  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, transparent 1px);
-  opacity: 0.08;
-  mix-blend-mode: screen;
-  animation: portalNoise 2.6s steps(2) infinite;
-}
-
 .portal-frame {
   position: relative;
   width: min(520px, 80vw);
