@@ -19,7 +19,7 @@ export default function App() {
 
   const sections = useMemo(
     () => [
-      <HomeHero key="home" />,
+      <HomeHero key="home" themeMode={themeMode} />,
       <AboutSection key="about" themeMode={themeMode} />,
       <ExperienceSection key="experience" />,
       <SkillsSection key="skills" />,
@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <div className={`app-shell ${isUpsideDown ? 'theme-upside' : ''}`}>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {showLoader && <PortalLoader key="portal-loader" onFinish={() => setShowLoader(false)} />}
       </AnimatePresence>
       {!showLoader && <Navbar themeMode={themeMode} onToggleTheme={toggleTheme} />}
@@ -60,8 +60,12 @@ export default function App() {
       <div className="glitch-overlay" />
       <div className="vignette-overlay" />
       <main className="relative z-10 mx-auto max-w-6xl px-6 pb-24">
-        {sections}
-        <Footer />
+        {!showLoader && (
+          <>
+            {sections}
+            <Footer />
+          </>
+        )}
       </main>
     </div>
   )
