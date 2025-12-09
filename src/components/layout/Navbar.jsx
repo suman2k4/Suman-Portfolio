@@ -46,7 +46,7 @@ export default function Navbar({ themeMode, onToggleTheme }) {
         className="fixed top-4 left-0 right-0 z-50 mx-auto w-[95%] max-w-6xl rounded-full border border-white/20 bg-black/80 shadow-lg backdrop-blur-xl transition-all duration-500"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
       >
         <nav className="relative flex items-center justify-between px-8 py-4">
           {/* Mobile: Burger Button (Left) */}

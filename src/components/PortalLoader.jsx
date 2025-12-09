@@ -19,38 +19,20 @@ const letterVariants = {
 }
 
 export default function PortalLoader({ onFinish }) {
-    const [exitPhase, setExitPhase] = useState(false)
-    const finishRef = useRef(onFinish)
-
     useEffect(() => {
-        finishRef.current = onFinish
-    }, [onFinish])
-
-    useEffect(() => {
-        // Trigger the slide-down + fade-out animation
-        const exitTimer = setTimeout(() => setExitPhase(true), 2500)
-
-        // Unmount after animation finishes
-        const finishTimer = setTimeout(() => {
+        const timer = setTimeout(() => {
             scrollToId('home')
-            finishRef.current?.()
-        }, 3300)
+            onFinish()
+        }, 3000)
 
-        return () => {
-            clearTimeout(exitTimer) // Renamed flashTimer to exitTimer for clarity
-            clearTimeout(finishTimer)
-        }
-    }, [])
+        return () => clearTimeout(timer)
+    }, [onFinish])
 
     return (
         <motion.div
             className="portal-loader"
-            initial={{ opacity: 1, y: 0 }}
-            animate={{
-                opacity: exitPhase ? 0 : 1,
-                y: exitPhase ? '100%' : 0
-            }}
-            transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }} // Smooth cubic bezier
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
         >
             <div className="portal-loader__gradient" />
             <div className="portal-loader__vignette" />
