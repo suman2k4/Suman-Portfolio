@@ -2,6 +2,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { heroContent } from '../../data/content'
 import { scrollToId } from '../../utils/scroll'
+import { PointerHighlight } from '../ui/PointerHighlight'
 
 export default function HomeHero({ themeMode }) {
   const mouseX = useMotionValue(0)
@@ -197,13 +198,21 @@ export default function HomeHero({ themeMode }) {
           </motion.div>
 
           {/* Description */}
-          <motion.p
-            variants={itemVariants}
-            className="mt-6 max-w-[580px] text-[15px] md:text-[16px] leading-[1.7] font-normal"
-            style={{ color: 'rgba(255,255,255,0.72)' }}
-          >
-            Aspiring AI and Data Science graduate crafting applied ML, Generative AI, and automation projects for real teams.
-          </motion.p>
+          <motion.div variants={itemVariants} className="mt-5 font-normal w-full flex justify-center md:justify-start">
+            <PointerHighlight
+              containerClassName="max-w-[700px] text-[15px] md:text-[16px] leading-loose text-center md:text-left px-6 pt-1 pb-5"
+              rectangleClassName={
+                isUpside
+                  ? "rounded-2xl border-[#00ffff] shadow-[0_0_20px_rgba(0,255,255,0.3)] bg-blue-900/10 backdrop-blur-sm"
+                  : "rounded-2xl border-[#ff0055] shadow-[0_0_20px_rgba(255,0,85,0.3)] bg-red-900/10 backdrop-blur-sm"
+              }
+              delay={2}
+            >
+              <p style={{ color: 'rgba(255,255,255,0.9)' }}>
+                Aspiring AI and Data Science Undergraduate crafting applied ML, Generative AI, and automation projects for real teams.
+              </p>
+            </PointerHighlight>
+          </motion.div>
 
           {/* Buttons */}
           <motion.div
@@ -224,7 +233,11 @@ export default function HomeHero({ themeMode }) {
 
             <motion.button
               onClick={() => scrollToId('contact')}
-              whileHover={{ scale: 1.03, borderColor: 'rgba(91, 43, 255, 0.5)', boxShadow: '0 0 25px rgba(91, 43, 255, 0.25)' }}
+              whileHover={{
+                scale: 1.03,
+                borderColor: isUpside ? 'rgba(91, 43, 255, 0.5)' : 'rgba(255, 51, 95, 0.5)',
+                boxShadow: isUpside ? '0 0 25px rgba(91, 43, 255, 0.25)' : '0 0 25px rgba(255, 51, 95, 0.25)'
+              }}
               className="w-full sm:w-auto px-8 py-3.5 rounded-full border uppercase text-[13px] font-semibold tracking-[0.12em] text-white/90 transition-transform duration-300"
               style={{
                 background: 'linear-gradient(120deg, rgba(20,20,40,0.9), rgba(30,0,40,0.9))',
