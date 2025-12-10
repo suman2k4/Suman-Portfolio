@@ -10,9 +10,12 @@ export const heroContent = {
 }
 
 export const aboutContent = {
-  paragraph:
-    'Aspiring AI and Data Science graduate with hands-on experience across machine learning, Generative AI, and Python-based products. Built solutions like a supply chain demand forecaster, YouTube summarizer, lecture-to-notes bot, and AI-powered trading platform while sharpening collaboration, problem-solving, and time management in internships and hackathons.',
-  specializations: ['Generative AI', 'Machine Learning Engineering', 'Intelligent Automation']
+  paragraphs: [
+    "I am a final-year B.Tech student specializing in Artificial Intelligence and Data Science with a strong foundation in Python, Machine Learning, and Generative AI.",
+    "My technical expertise lies in building end-to-end AI solutions. I have successfully deployed projects ranging from Supply Chain Demand Forecasting (improving accuracy by 15%) to GenAI video summarizers. My experience extends to full-stack development and DevOps, ensuring that the models I build are scalable and deployable.",
+    "Currently, I am an AIML Engineer Intern at Syncner, working on recommendation engines and web scraping pipelines. I am Azure AI Fundamentals certified and passionate about leveraging data to drive business insights."
+  ],
+  tag: "AI/ML Engineer | Data Science Enthusiast"
 }
 
 export const experience = [

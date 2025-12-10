@@ -203,8 +203,8 @@ export default function HomeHero({ themeMode }) {
               containerClassName="max-w-[700px] text-[15px] md:text-[16px] leading-loose text-center md:text-left px-6 pt-1 pb-5"
               rectangleClassName={
                 isUpside
-                  ? "rounded-2xl border-[#00ffff] shadow-[0_0_20px_rgba(0,255,255,0.3)] bg-blue-900/10 backdrop-blur-sm"
-                  : "rounded-2xl border-[#ff0055] shadow-[0_0_20px_rgba(255,0,85,0.3)] bg-red-900/10 backdrop-blur-sm"
+                  ? "rounded-2xl border-[#00ffff] shadow-[0_0_20px_rgba(0,255,255,0.3)] bg-black/40"
+                  : "rounded-2xl border-[#ff0055] shadow-[0_0_20px_rgba(255,0,85,0.3)] bg-black/40"
               }
               delay={2}
             >

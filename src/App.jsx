@@ -21,7 +21,7 @@ export default function App() {
     () => [
       <HomeHero key="home" themeMode={themeMode} />,
       <AboutSection key="about" themeMode={themeMode} />,
-      <ExperienceSection key="experience" />,
+      <ExperienceSection key="experience" themeMode={themeMode} />,
       <SkillsSection key="skills" />,
       <ProjectsSection key="projects" />,
       <CertificationsSection key="certifications" />,
