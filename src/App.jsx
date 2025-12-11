@@ -22,10 +22,10 @@ export default function App() {
       <HomeHero key="home" themeMode={themeMode} />,
       <AboutSection key="about" themeMode={themeMode} />,
       <ExperienceSection key="experience" themeMode={themeMode} />,
-      <SkillsSection key="skills" />,
-      <ProjectsSection key="projects" />,
-      <CertificationsSection key="certifications" />,
-      <ContactSection key="contact" />
+      <SkillsSection key="skills" themeMode={themeMode} />,
+      <ProjectsSection key="projects" themeMode={themeMode} />,
+      <CertificationsSection key="certifications" themeMode={themeMode} />,
+      <ContactSection key="contact" themeMode={themeMode} />
     ],
     [themeMode]
   )
