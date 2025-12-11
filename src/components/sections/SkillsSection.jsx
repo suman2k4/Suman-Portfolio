@@ -6,6 +6,7 @@ import { skills } from '../../data/content'
 export default function SkillsSection({ themeMode }) {
   const isUpside = themeMode === 'upside-down'
   const glowColor = isUpside ? '48, 86, 211' : '229, 9, 20'
+  const borderClass = isUpside ? 'border-stBlue/40' : 'border-stRed/40'
 
   return (
     <section id="skills" className="py-24">
@@ -25,7 +26,7 @@ export default function SkillsSection({ themeMode }) {
           >
             <ParticleCard
               glowColor={glowColor}
-              className="card card--border-glow glass-panel p-6 w-full h-full"
+              className={`card card--border-glow glass-panel p-6 w-full h-full ${borderClass}`}
               enableTilt={false}
               particleCount={5}
             >

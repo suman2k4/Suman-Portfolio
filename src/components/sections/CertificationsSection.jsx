@@ -6,6 +6,7 @@ import { certifications } from '../../data/content'
 export default function CertificationsSection({ themeMode }) {
   const isUpside = themeMode === 'upside-down'
   const glowColor = isUpside ? '48, 86, 211' : '229, 9, 20'
+  const borderClass = isUpside ? 'border-stBlue/40' : 'border-stRed/40'
 
   return (
     <section id="certifications" className="py-24">
@@ -29,7 +30,7 @@ export default function CertificationsSection({ themeMode }) {
           >
             <ParticleCard
               glowColor={glowColor}
-              className="card card--border-glow glass-panel rotate-[-1deg] rounded-xl border border-white/5 p-5 transition hover:-translate-y-2 hover:rotate-1 h-full block"
+              className={`card card--border-glow glass-panel rotate-[-1deg] rounded-xl border ${borderClass} p-5 transition hover:-translate-y-2 hover:rotate-1 h-full block`}
               enableTilt={false}
               particleCount={6}
             >

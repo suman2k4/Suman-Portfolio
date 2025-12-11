@@ -89,7 +89,8 @@ export const ParticleCard = ({
     glowColor = DEFAULT_GLOW_COLOR,
     enableTilt = true,
     clickEffect = false,
-    enableMagnetism = false
+    enableMagnetism = false,
+    ...props
 }) => {
     const cardRef = useRef(null);
     const particlesRef = useRef([]);
@@ -311,6 +312,7 @@ export const ParticleCard = ({
             ref={cardRef}
             className={`${className} relative overflow-hidden`}
             style={{ ...style, position: 'relative', overflow: 'hidden' }}
+            {...props}
         >
             {children}
         </div>

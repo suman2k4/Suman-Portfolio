@@ -7,6 +7,7 @@ export default function ContactSection({ themeMode }) {
   const [status, setStatus] = useState(null)
   const isUpside = themeMode === 'upside-down'
   const glowColor = isUpside ? '48, 86, 211' : '229, 9, 20'
+  const borderClass = isUpside ? 'border-stBlue/40' : 'border-stRed/40'
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -29,7 +30,7 @@ export default function ContactSection({ themeMode }) {
         >
           <ParticleCard
             glowColor={glowColor}
-            className="card card--border-glow glass-panel border border-white/10 p-8 w-full"
+            className={`card card--border-glow glass-panel border ${borderClass} p-8 w-full`}
             enableTilt={false}
             enableMagnetism={false} // form inputs might be tricky with magnetism
             particleCount={12}

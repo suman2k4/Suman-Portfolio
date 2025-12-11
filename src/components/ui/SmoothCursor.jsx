@@ -1,7 +1,6 @@
-
-import { useEffect, useRef, useState } from 'react'
-import { motion, useSpring } from 'framer-motion'
-import PropTypes from 'prop-types'
+import { useEffect, useRef, useCallback, useMemo } from 'react';
+import { gsap } from 'gsap';
+import PropTypes from 'prop-types';
 
 const StrangerThingsCursorSVG = ({ color }) => {
     return (
@@ -11,7 +10,7 @@ const StrangerThingsCursorSVG = ({ color }) => {
             height={40}
             viewBox="0 0 50 50"
             fill="none"
-            style={{ scale: 1.2, overflow: 'visible' }}
+            style={{ overflow: 'visible' }}
         >
             {/* Glow Filter */}
             <defs>
@@ -47,167 +46,338 @@ StrangerThingsCursorSVG.propTypes = {
     color: PropTypes.string.isRequired
 }
 
-
-export const SmoothCursor = ({
+const SmoothCursor = ({
     themeMode,
-    springConfig = {
-        damping: 25, // Lower damping for a bit more "floaty" feel like supernatural
-        stiffness: 300,
-        mass: 0.8,
-        restDelta: 0.001,
-    },
+    targetSelector = 'button, a, .cursor-target', // Restricted to buttons and links
+    spinDuration = 2,
+    hideDefaultCursor = true,
+    hoverDuration = 0.2,
+    parallaxOn = true
 }) => {
+    const cursorRef = useRef(null);
+    const arrowRef = useRef(null); // Ref for the Arrow SVG
+    const cornersRef = useRef(null); // Ref for the target corners group
+    const spinTl = useRef(null);
+
+    const isActiveRef = useRef(false);
+    const targetCornerPositionsRef = useRef(null);
+    const tickerFnRef = useRef(null);
+    const activeStrengthRef = useRef(0);
+
     const isUpside = themeMode === 'upside-down';
-    const color = isUpside ? '48, 86, 211' : '229, 9, 20'; // Neon Blue : Neon Red
+    const borderColorStart = isUpside ? 'border-stBlue' : 'border-stRed';
+    const colorRGB = isUpside ? '48, 86, 211' : '229, 9, 20';
 
-    const [isMoving, setIsMoving] = useState(false)
-    const lastMousePos = useRef({ x: 0, y: 0 })
-    const velocity = useRef({ x: 0, y: 0 })
-    const lastUpdateTime = useRef(Date.now())
-    const previousAngle = useRef(0)
-    const accumulatedRotation = useRef(0)
+    const isMobile = useMemo(() => {
+        const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth <= 768;
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
+        const isMobileUserAgent = mobileRegex.test(userAgent.toLowerCase());
+        return (hasTouchScreen && isSmallScreen) || isMobileUserAgent;
+    }, []);
 
-    // Using useSpring from framer-motion directly as requested in similar fashion
-    const cursorX = useSpring(0, springConfig)
-    const cursorY = useSpring(0, springConfig)
+    const constants = useMemo(
+        () => ({
+            borderWidth: 3,
+            cornerSize: 12
+        }),
+        []
+    );
 
-    const rotation = useSpring(0, {
-        ...springConfig,
-        damping: 40,
-        stiffness: 200,
-    })
-
-    const scale = useSpring(1, {
-        ...springConfig,
-        stiffness: 400,
-        damping: 30,
-    })
+    const moveCursor = useCallback((x, y) => {
+        if (!cursorRef.current) return;
+        gsap.to(cursorRef.current, {
+            x,
+            y,
+            duration: 0.1,
+            ease: 'power3.out'
+        });
+    }, []);
 
     useEffect(() => {
-        // Hide default cursor
-        document.body.style.cursor = 'none';
+        if (isMobile || !cursorRef.current) return;
 
-        // Velocity Calculator
-        const updateVelocity = (currentPos) => {
-            const currentTime = Date.now()
-            const deltaTime = currentTime - lastUpdateTime.current
+        const originalCursor = document.body.style.cursor;
+        if (hideDefaultCursor) {
+            document.body.style.cursor = 'none';
+            const style = document.createElement('style');
+            style.innerHTML = `*, button, a, input, textarea { cursor: none !important; }`;
+            style.id = 'cursor-none-style';
+            document.head.appendChild(style);
+        }
 
-            if (deltaTime > 0) {
-                velocity.current = {
-                    x: (currentPos.x - lastMousePos.current.x) / deltaTime,
-                    y: (currentPos.y - lastMousePos.current.y) / deltaTime,
+        const cursor = cursorRef.current;
+        // Select the individual corner elements
+        const corners = cursor.querySelectorAll('.target-cursor-corner');
+        cornersRef.current = corners;
+
+        let activeTarget = null;
+        let currentLeaveHandler = null;
+        let resumeTimeout = null;
+
+        const cleanupTarget = target => {
+            if (currentLeaveHandler) {
+                target.removeEventListener('mouseleave', currentLeaveHandler);
+            }
+            currentLeaveHandler = null;
+        };
+
+        gsap.set(cursor, {
+            xPercent: -50,
+            yPercent: -50,
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2
+        });
+
+        // Initially hide corners, show arrow
+        gsap.set(corners, { opacity: 0, scale: 0 });
+        gsap.set(arrowRef.current, { opacity: 1, scale: 1 });
+
+        const createSpinTimeline = () => {
+            if (spinTl.current) {
+                spinTl.current.kill();
+            }
+            spinTl.current = gsap
+                .timeline({ repeat: -1, paused: true }) // Start paused
+                .to(cursor, { rotation: '+=360', duration: spinDuration, ease: 'none' });
+        };
+
+        createSpinTimeline();
+
+        const tickerFn = () => {
+            if (!targetCornerPositionsRef.current || !cursorRef.current || !cornersRef.current) {
+                return;
+            }
+            const strength = activeStrengthRef.current;
+            if (strength === 0) return;
+            const cursorX = gsap.getProperty(cursorRef.current, 'x');
+            const cursorY = gsap.getProperty(cursorRef.current, 'y');
+            const corners = Array.from(cornersRef.current);
+            corners.forEach((corner, i) => {
+                const currentX = gsap.getProperty(corner, 'x');
+                const currentY = gsap.getProperty(corner, 'y');
+                const targetX = targetCornerPositionsRef.current[i].x - cursorX;
+                const targetY = targetCornerPositionsRef.current[i].y - cursorY;
+                const finalX = currentX + (targetX - currentX) * strength;
+                const finalY = currentY + (targetY - currentY) * strength;
+                const duration = strength >= 0.99 ? (parallaxOn ? 0.2 : 0) : 0.05;
+                gsap.to(corner, {
+                    x: finalX,
+                    y: finalY,
+                    duration: duration,
+                    ease: duration === 0 ? 'none' : 'power1.out',
+                    overwrite: 'auto'
+                });
+            });
+        };
+
+        tickerFnRef.current = tickerFn;
+
+        const moveHandler = e => moveCursor(e.clientX, e.clientY);
+        window.addEventListener('mousemove', moveHandler);
+
+        // Orient arrow based on movement when in Idle mode
+        let lastX = 0;
+        let lastY = 0;
+        const orientationHandler = (e) => {
+            if (isActiveRef.current || !arrowRef.current) return;
+            const dx = e.clientX - lastX;
+            const dy = e.clientY - lastY;
+            if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+                // Optional: Implement rotation logic 
+            }
+            lastX = e.clientX;
+            lastY = e.clientY;
+        };
+        window.addEventListener('mousemove', orientationHandler);
+
+
+        const scrollHandler = () => {
+            if (!activeTarget || !cursorRef.current) return;
+            const mouseX = gsap.getProperty(cursorRef.current, 'x');
+            const mouseY = gsap.getProperty(cursorRef.current, 'y');
+            const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
+            const isStillOverTarget =
+                elementUnderMouse &&
+                (elementUnderMouse === activeTarget || elementUnderMouse.closest(targetSelector) === activeTarget);
+            if (!isStillOverTarget) {
+                if (currentLeaveHandler) {
+                    currentLeaveHandler();
                 }
             }
+        };
+        window.addEventListener('scroll', scrollHandler, { passive: true });
 
-            lastUpdateTime.current = currentTime
-            lastMousePos.current = currentPos
-        }
+        const mouseDownHandler = () => {
+            gsap.to(cursorRef.current, { scale: 0.9, duration: 0.1 });
+        };
 
-        const smoothMouseMove = (e) => {
-            const currentPos = { x: e.clientX, y: e.clientY }
-            updateVelocity(currentPos)
+        const mouseUpHandler = () => {
+            gsap.to(cursorRef.current, { scale: 1, duration: 0.2 });
+        };
 
-            const speed = Math.sqrt(
-                Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2)
-            )
+        window.addEventListener('mousedown', mouseDownHandler);
+        window.addEventListener('mouseup', mouseUpHandler);
 
-            cursorX.set(currentPos.x)
-            cursorY.set(currentPos.y)
-
-            // Calculate rotation based on movement direction
-            if (speed > 0.1) {
-                // -45 degrees offset because the arrow points top-left by default in SVG logic often, 
-                // but here our path starts at 5,5. 
-                // Standard cursor points top-left.
-                // atan2(y, x) gives angle from X axis.
-                const currentAngle =
-                    Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) + 90 + 135
-
-                let angleDiff = currentAngle - previousAngle.current
-
-                // Optimize rotation to take shortest path
-                if (angleDiff > 180) angleDiff -= 360
-                if (angleDiff < -180) angleDiff += 360
-
-                accumulatedRotation.current += angleDiff
-                rotation.set(accumulatedRotation.current)
-                previousAngle.current = currentAngle
-
-                // Slight squash effect on move
-                scale.set(0.9)
-                setIsMoving(true)
-
-                const timeout = setTimeout(() => {
-                    scale.set(1)
-                    setIsMoving(false)
-                }, 150)
-
-                return () => clearTimeout(timeout)
+        const enterHandler = e => {
+            const directTarget = e.target;
+            const allTargets = [];
+            let current = directTarget;
+            while (current && current !== document.body) {
+                if (current.matches(targetSelector)) {
+                    allTargets.push(current);
+                }
+                current = current.parentElement;
             }
-        }
+            const target = allTargets[0] || null;
+            if (!target || !cursorRef.current || !cornersRef.current) return;
+            if (activeTarget === target) return;
+            if (activeTarget) {
+                cleanupTarget(activeTarget);
+            }
+            if (resumeTimeout) {
+                clearTimeout(resumeTimeout);
+                resumeTimeout = null;
+            }
 
-        let rafId
-        const throttledMouseMove = (e) => {
-            if (rafId) return
+            activeTarget = target;
 
-            rafId = requestAnimationFrame(() => {
-                smoothMouseMove(e)
-                rafId = 0
-            })
-        }
+            // ENTER TARGET STATE
+            const corners = Array.from(cornersRef.current);
+            gsap.killTweensOf(arrowRef.current);
 
-        window.addEventListener("mousemove", throttledMouseMove)
+            // Hide Arrow, Show Corners
+            gsap.to(arrowRef.current, { scale: 0, opacity: 0, duration: 0.2 });
+            gsap.to(corners, { scale: 1, opacity: 1, duration: 0.2, overwrite: 'auto' });
+
+            // Reset rotation for snapping
+            gsap.set(cursorRef.current, { rotation: 0 });
+
+            const rect = target.getBoundingClientRect();
+            const { borderWidth, cornerSize } = constants;
+            const cursorX = gsap.getProperty(cursorRef.current, 'x');
+            const cursorY = gsap.getProperty(cursorRef.current, 'y');
+
+            targetCornerPositionsRef.current = [
+                { x: rect.left - borderWidth, y: rect.top - borderWidth },
+                { x: rect.right + borderWidth - cornerSize, y: rect.top - borderWidth },
+                { x: rect.right + borderWidth - cornerSize, y: rect.bottom + borderWidth - cornerSize },
+                { x: rect.left - borderWidth, y: rect.bottom + borderWidth - cornerSize }
+            ];
+
+            isActiveRef.current = true;
+            gsap.ticker.add(tickerFnRef.current);
+
+            gsap.to(activeStrengthRef, { current: 1, duration: hoverDuration, ease: 'power2.out' });
+
+            corners.forEach((corner, i) => {
+                gsap.to(corner, {
+                    x: targetCornerPositionsRef.current[i].x - cursorX,
+                    y: targetCornerPositionsRef.current[i].y - cursorY,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+
+            const leaveHandler = () => {
+                // LEAVE TARGET STATE
+                gsap.ticker.remove(tickerFnRef.current);
+                isActiveRef.current = false;
+                targetCornerPositionsRef.current = null;
+                gsap.set(activeStrengthRef, { current: 0, overwrite: true });
+
+                // Show Arrow, Hide Corners
+                gsap.to(arrowRef.current, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' });
+                gsap.to(corners, { scale: 0, opacity: 0, duration: 0.2 });
+
+                activeTarget = null;
+
+                cleanupTarget(target);
+            };
+            currentLeaveHandler = leaveHandler;
+            target.addEventListener('mouseleave', leaveHandler);
+        };
+
+        window.addEventListener('mouseover', enterHandler, { passive: true });
 
         return () => {
-            window.removeEventListener("mousemove", throttledMouseMove)
-            document.body.style.cursor = "auto"
-            if (rafId) cancelAnimationFrame(rafId)
+            if (tickerFnRef.current) {
+                gsap.ticker.remove(tickerFnRef.current);
+            }
+            window.removeEventListener('mousemove', moveHandler);
+            window.removeEventListener('mousemove', orientationHandler);
+            window.removeEventListener('mouseover', enterHandler);
+            window.removeEventListener('scroll', scrollHandler);
+            window.removeEventListener('mousedown', mouseDownHandler);
+            window.removeEventListener('mouseup', mouseUpHandler);
+            if (activeTarget) {
+                cleanupTarget(activeTarget);
+            }
+            spinTl.current?.kill();
+            document.body.style.cursor = originalCursor;
+            const style = document.getElementById('cursor-none-style');
+            if (style) style.remove();
+
+            isActiveRef.current = false;
+            targetCornerPositionsRef.current = null;
+            activeStrengthRef.current = 0;
+        };
+    }, [targetSelector, spinDuration, moveCursor, constants, hideDefaultCursor, isMobile, hoverDuration, parallaxOn]);
+
+    useEffect(() => {
+        if (isMobile || !cursorRef.current || !spinTl.current) return;
+        if (spinTl.current.isActive()) {
+            spinTl.current.kill();
+            spinTl.current = gsap
+                .timeline({ repeat: -1 })
+                .to(cursorRef.current, { rotation: '+=360', duration: spinDuration, ease: 'none' });
         }
-    }, [cursorX, cursorY, rotation, scale])
+    }, [spinDuration, isMobile]);
+
+    if (isMobile) {
+        return null;
+    }
 
     return (
-        <>
-            <style>
-                {`
-                *, button, a, input, textarea {
-                    cursor: none !important;
-                }
-            `}
-            </style>
-            <motion.div
-                className="fixed top-0 left-0 pointer-events-none z-[9999]"
-                style={{
-                    x: cursorX,
-                    y: cursorY,
-                    translateX: "-50%", // Center the SVG on the point
-                    translateY: "-50%",
-                    rotate: rotation,
-                    scale: scale,
-                    filter: `drop-shadow(0 0 8px rgba(${color}, 0.6))`,
-                    willChange: "transform",
-                }}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{
-                    type: "spring",
-                    stiffness: 400,
-                    damping: 30,
-                }}
-            >
-                <StrangerThingsCursorSVG color={color} />
-            </motion.div>
-        </>
-    )
-}
+        <div
+            ref={cursorRef}
+            className="fixed top-0 left-0 w-0 h-0 pointer-events-none z-[9999]"
+            style={{ willChange: 'transform' }}
+        >
+            {/* Default Arrow Cursor */}
+            <div ref={arrowRef} className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 will-change-transform origin-center">
+                <StrangerThingsCursorSVG color={colorRGB} />
+            </div>
+
+            {/* Target Mode Corners - Hidden by default via JS, but good to have CSS fallback */}
+            <div
+                className={`target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] ${borderColorStart} -translate-x-[150%] -translate-y-[150%] border-r-0 border-b-0 shadow-[0_0_5px_currentColor]`}
+                style={{ willChange: 'transform', opacity: 0 }}
+            />
+            <div
+                className={`target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] ${borderColorStart} translate-x-1/2 -translate-y-[150%] border-l-0 border-b-0 shadow-[0_0_5px_currentColor]`}
+                style={{ willChange: 'transform', opacity: 0 }}
+            />
+            <div
+                className={`target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] ${borderColorStart} translate-x-1/2 translate-y-1/2 border-l-0 border-t-0 shadow-[0_0_5px_currentColor]`}
+                style={{ willChange: 'transform', opacity: 0 }}
+            />
+            <div
+                className={`target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] ${borderColorStart} -translate-x-[150%] translate-y-1/2 border-r-0 border-t-0 shadow-[0_0_5px_currentColor]`}
+                style={{ willChange: 'transform', opacity: 0 }}
+            />
+        </div>
+    );
+};
 
 SmoothCursor.propTypes = {
     themeMode: PropTypes.string.isRequired,
-    springConfig: PropTypes.shape({
-        damping: PropTypes.number,
-        stiffness: PropTypes.number,
-        mass: PropTypes.number,
-        restDelta: PropTypes.number
-    })
-}
+    targetSelector: PropTypes.string,
+    spinDuration: PropTypes.number,
+    hideDefaultCursor: PropTypes.bool,
+    hoverDuration: PropTypes.number,
+    parallaxOn: PropTypes.bool
+};
 
 export default SmoothCursor;
