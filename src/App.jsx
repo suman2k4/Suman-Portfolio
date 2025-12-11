@@ -12,6 +12,7 @@ import ContactSection from './components/sections/ContactSection'
 import StrangerBackground from './components/visuals/StrangerBackground'
 import UpsideDownScene from './components/visuals/UpsideDownScene'
 import PortalLoader from './components/PortalLoader'
+import SmoothCursor from './components/ui/SmoothCursor'
 
 export default function App() {
   const [themeMode, setThemeMode] = useState('normal')
@@ -22,10 +23,10 @@ export default function App() {
       <HomeHero key="home" themeMode={themeMode} />,
       <AboutSection key="about" themeMode={themeMode} />,
       <ExperienceSection key="experience" themeMode={themeMode} />,
-      <SkillsSection key="skills" />,
-      <ProjectsSection key="projects" />,
-      <CertificationsSection key="certifications" />,
-      <ContactSection key="contact" />
+      <SkillsSection key="skills" themeMode={themeMode} />,
+      <ProjectsSection key="projects" themeMode={themeMode} />,
+      <CertificationsSection key="certifications" themeMode={themeMode} />,
+      <ContactSection key="contact" themeMode={themeMode} />
     ],
     [themeMode]
   )
@@ -51,6 +52,7 @@ export default function App() {
       <AnimatePresence mode="wait">
         {showLoader && <PortalLoader key="portal-loader" onFinish={() => setShowLoader(false)} />}
       </AnimatePresence>
+      {!showLoader && <SmoothCursor themeMode={themeMode} />}
       {!showLoader && <Navbar themeMode={themeMode} onToggleTheme={toggleTheme} />}
       <div className={`background-stage ${isUpsideDown ? 'background-stage--upside' : 'background-stage--normal'}`}>
         <StrangerBackground />
