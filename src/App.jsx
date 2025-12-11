@@ -12,6 +12,7 @@ import ContactSection from './components/sections/ContactSection'
 import StrangerBackground from './components/visuals/StrangerBackground'
 import UpsideDownScene from './components/visuals/UpsideDownScene'
 import PortalLoader from './components/PortalLoader'
+import SmoothCursor from './components/ui/SmoothCursor'
 
 export default function App() {
   const [themeMode, setThemeMode] = useState('normal')
@@ -51,6 +52,7 @@ export default function App() {
       <AnimatePresence mode="wait">
         {showLoader && <PortalLoader key="portal-loader" onFinish={() => setShowLoader(false)} />}
       </AnimatePresence>
+      {!showLoader && <SmoothCursor themeMode={themeMode} />}
       {!showLoader && <Navbar themeMode={themeMode} onToggleTheme={toggleTheme} />}
       <div className={`background-stage ${isUpsideDown ? 'background-stage--upside' : 'background-stage--normal'}`}>
         <StrangerBackground />

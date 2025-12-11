@@ -87,8 +87,7 @@ export default function AboutSection({ themeMode }) {
                 ))}
               </div>
 
-              {/* Decorative Corner Accent */}
-              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-stRed/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
             </ParticleCard>
           </motion.div>
         </MagicBento>
