@@ -58,7 +58,7 @@ export default function PortalLoader({ onFinish }) {
                     animate={{ opacity: 1, letterSpacing: '0.7em' }}
                     transition={{ delay: 1.6, duration: 0.8, ease: 'easeOut' }}
                 >
-                    Spark, sculpt, release.
+                    Spark  sculpt  release
                 </motion.p>
             </div>
         </motion.div>

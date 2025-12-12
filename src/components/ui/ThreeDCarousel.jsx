@@ -203,10 +203,21 @@ const CarouselItem = ({ item, index, active, isUpside, glowColor, cardHeight, bo
 
                             <div className="flex-grow w-full overflow-y-auto mb-6 pr-2 custom-scrollbar text-left space-y-4">
                                 <div>
-                                    <h4 className="text-xs uppercase tracking-widest text-white/40 mb-2">About Project</h4>
-                                    <p className="text-white/80 text-sm leading-relaxed">
-                                        {item.description}
-                                    </p>
+                                    <h4 className="text-xs uppercase tracking-widest text-white/40 mb-2">Features</h4>
+                                    {item.features ? (
+                                        <ul className="list-none space-y-2">
+                                            {item.features.map((feature, i) => (
+                                                <li key={i} className="text-white/80 text-sm leading-relaxed flex items-start">
+                                                    <span className={`inline-block w-1.5 h-1.5 rounded-full mt-1.5 mr-2 flex-shrink-0 ${isUpside ? 'bg-stBlue' : 'bg-stRed'}`} />
+                                                    <span>{feature}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-white/80 text-sm leading-relaxed">
+                                            {item.description}
+                                        </p>
+                                    )}
                                 </div>
 
                                 <div>
@@ -222,18 +233,7 @@ const CarouselItem = ({ item, index, active, isUpside, glowColor, cardHeight, bo
                             </div>
 
                             <div className="flex flex-col gap-3 mt-auto w-full">
-                                {item.links?.live && (
-                                    <a
-                                        href={item.links.live}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`flex items-center justify-center w-full py-2.5 rounded bg-white/10 hover:bg-white/20 transition-all border ${borderColorClass} text-white font-medium text-xs tracking-wider uppercase group`}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        Visit Live Project
-                                        <ArrowRight className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
-                                    </a>
-                                )}
+
 
                                 <button
                                     onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
@@ -265,16 +265,17 @@ const ThreeDCarousel = ({
     const [touchStart, setTouchStart] = useState(null);
     const [touchEnd, setTouchEnd] = useState(null);
     const isMobile = useIsMobile();
-    const minSwipeDistance = 50;
+    const [animationStage, setAnimationStage] = useState(0);
 
     useEffect(() => {
-        if (autoRotate && isInView && !isHovering) {
-            const interval = setInterval(() => {
-                setActive((prev) => (prev + 1) % items.length);
-            }, rotateInterval);
-            return () => clearInterval(interval);
+        if (isInView && animationStage === 0) {
+            setAnimationStage(1);
+            const timer = setTimeout(() => {
+                setAnimationStage(2);
+            }, 600);
+            return () => clearTimeout(timer);
         }
-    }, [isInView, isHovering, autoRotate, rotateInterval, items.length]);
+    }, [isInView, animationStage]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -287,7 +288,24 @@ const ThreeDCarousel = ({
         return () => observer.disconnect();
     }, []);
 
+    // Keyboard navigation
+    useEffect(() => {
+        if (!isInView) return;
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'ArrowLeft') {
+                setActive((prev) => (prev - 1 + items.length) % items.length);
+            } else if (e.key === 'ArrowRight') {
+                setActive((prev) => (prev + 1) % items.length);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isInView, items.length]);
+
     const onTouchStart = (e) => {
+        setIsHovering(true); // Pause auto-rotate
         setTouchStart(e.targetTouches[0].clientX);
         setTouchEnd(null);
     };
@@ -297,8 +315,10 @@ const ThreeDCarousel = ({
     };
 
     const onTouchEnd = () => {
+        setIsHovering(false); // Resume auto-rotate
         if (!touchStart || !touchEnd) return;
         const distance = touchStart - touchEnd;
+        const minSwipeDistance = 30; // Reduced for swiftness
         if (distance > minSwipeDistance) {
             setActive((prev) => (prev + 1) % items.length);
         } else if (distance < -minSwipeDistance) {
@@ -377,9 +397,13 @@ const ThreeDCarousel = ({
     const borderColorClass = isUpside ? 'border-stBlue/40' : 'border-stRed/40';
 
     return (
-        <section
+        <motion.section
             id="ThreeDCarousel"
             className="bg-transparent min-w-full mx-auto flex items-center justify-center p-4"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8 }}
         >
             <style>
                 {`
@@ -447,7 +471,7 @@ const ThreeDCarousel = ({
                             return (
                                 <div
                                     key={index}
-                                    className={`absolute top-0 w-full max-w-md transform transition-all duration-500 ${getCardAnimationClass(index)}`}
+                                    className={`absolute top-0 w-full max-w-md transform transition-all duration-300 ${getCardAnimationClass(index)}`}
                                     style={{ height: `${cardHeight}px` }}
                                 >
                                     <CarouselItem
@@ -465,39 +489,41 @@ const ThreeDCarousel = ({
                     </div>
 
                     {/* Navigation Buttons - Visible on all devices, responsive positioning */}
-                    <button
-                        className={`absolute left-4 bottom-4 md:bottom-auto md:left-4 md:top-1/2 md:-translate-y-1/2 w-10 h-10 bg-black/60 border ${isUpside ? 'border-stBlue/30 text-stBlue' : 'border-stRed/30 text-stRed'} rounded-full flex items-center justify-center hover:bg-black hover:scale-110 z-30 shadow-md transition-all backdrop-blur-sm group`}
-                        onClick={() =>
-                            setActive((prev) => (prev - 1 + items.length) % items.length)
-                        }
-                        aria-label="Previous"
-                    >
-                        <ChevronLeft className="w-5 h-5 group-hover:text-white transition-colors" />
-                    </button>
-                    <button
-                        className={`absolute right-4 bottom-4 md:bottom-auto md:right-4 md:top-1/2 md:-translate-y-1/2 w-10 h-10 bg-black/60 border ${isUpside ? 'border-stBlue/30 text-stBlue' : 'border-stRed/30 text-stRed'} rounded-full flex items-center justify-center hover:bg-black hover:scale-110 z-30 shadow-md transition-all backdrop-blur-sm group`}
-                        onClick={() => setActive((prev) => (prev + 1) % items.length)}
-                        aria-label="Next"
-                    >
-                        <ChevronRight className="w-5 h-5 group-hover:text-white transition-colors" />
-                    </button>
+                    <div className="transition-opacity duration-300">
+                        <button
+                            className={`absolute left-4 bottom-4 md:bottom-auto md:left-4 md:top-1/2 md:-translate-y-1/2 w-10 h-10 bg-black/60 border ${isUpside ? 'border-stBlue/30 text-stBlue' : 'border-stRed/30 text-stRed'} rounded-full flex items-center justify-center hover:bg-black hover:scale-110 z-30 shadow-md transition-all backdrop-blur-sm group`}
+                            onClick={() =>
+                                setActive((prev) => (prev - 1 + items.length) % items.length)
+                            }
+                            aria-label="Previous"
+                        >
+                            <ChevronLeft className="w-5 h-5 group-hover:text-white transition-colors" />
+                        </button>
+                        <button
+                            className={`absolute right-4 bottom-4 md:bottom-auto md:right-4 md:top-1/2 md:-translate-y-1/2 w-10 h-10 bg-black/60 border ${isUpside ? 'border-stBlue/30 text-stBlue' : 'border-stRed/30 text-stRed'} rounded-full flex items-center justify-center hover:bg-black hover:scale-110 z-30 shadow-md transition-all backdrop-blur-sm group`}
+                            onClick={() => setActive((prev) => (prev + 1) % items.length)}
+                            aria-label="Next"
+                        >
+                            <ChevronRight className="w-5 h-5 group-hover:text-white transition-colors" />
+                        </button>
 
-                    <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center space-x-3 z-30">
-                        {items.map((_, idx) => (
-                            <button
-                                key={idx}
-                                className={`w-2 h-2 rounded-full transition-all duration-300 ${active === idx
-                                    ? `w-5 ${isUpside ? 'bg-stBlue' : 'bg-stRed'}`
-                                    : "bg-white/20 hover:bg-white/40"
-                                    }`}
-                                onClick={() => setActive(idx)}
-                                aria-label={`Go to item ${idx + 1}`}
-                            />
-                        ))}
+                        <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center space-x-3 z-30">
+                            {items.map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${active === idx
+                                        ? `w-5 ${isUpside ? 'bg-stBlue' : 'bg-stRed'}`
+                                        : "bg-white/20 hover:bg-white/40"
+                                        }`}
+                                    onClick={() => setActive(idx)}
+                                    aria-label={`Go to item ${idx + 1}`}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 };
 

@@ -72,40 +72,68 @@ export const skills = [
 
 export const projects = [
   {
-    title: 'Listener — Lecture to Notes Bot',
+    title: 'Listenerrr — Video Lecture to Notes',
     description:
-      'Multimodal bot that blends Whisper audio capture, OCR slide parsing, and LLM summarization to auto-create structured lecture notes; adopted by MSJ Education Academy for 20–30% faster study prep.',
-    tags: ['Whisper', 'OCR', 'LLM'],
+      'Transform lecture videos into searchable study artifacts (notes, flashcards, semantic search) using FastAPI, Celery, and local LLMs (Gemma). Features a React frontend, Dockerized microservices architecture, and simulated mock pipelines for rapid dev.',
+    tags: ['Celery', 'React', 'Docker', 'LLM'],
+    features: [
+      'FastAPI backend exposing upload and job status endpoints.',
+      'Celery worker pipeline for Markdown, PDF, flashcards, and search index.',
+      'PostgreSQL schema managed via Alembic.',
+      'Docker Compose stack including Redis, MinIO, and Vite frontend.',
+      'Pytest suite with unit + integration coverage.'
+    ],
     links: {
-      github: 'https://github.com/suman2k4',
+      github: 'https://github.com/suman2k4/Listenerrr',
       live: '#'
     }
   },
   {
     title: 'YTBriefAI — YouTube Summarizer',
     description:
-      'Generates concise, 90%-relevant recaps of long-form videos while boosting SEO keyword coverage by 35% and cutting review time 60%.',
-    tags: ['Generative AI', 'YouTube API', 'SEO'],
+      'Automates content repurposing by extracting audio, transcribing with Faster-Whisper, and generating summaries, SEO hashtags, and catchy titles using Google Gemini. Built with Python and optional Streamlit UI.',
+    tags: ['Gemini AI', 'Python', 'Streamlit', 'SEO'],
+    features: [
+      'Upload YouTube video or provide URL for processing.',
+      'Audio extraction via moviepy and transcription using Faster-Whisper.',
+      'Concise summarization and SEO hashtag generation with Google Gemini.',
+      'Catchy title suggestions optimized for engagement.',
+      'Optional Streamlit UI for user-friendly interaction.'
+    ],
     links: {
-      github: 'https://github.com/suman2k4',
+      github: 'https://github.com/suman2k4/ytbriefai',
       live: '#'
     }
   },
   {
-    title: 'AI-Powered Trading Platform',
+    title: 'AI-Powered Autonomous Trading',
     description:
-      'Backtests ML-driven trading signals that exceed 70% prediction accuracy and executes under 100ms to rebalance portfolios 25% faster.',
-    tags: ['Python', 'ML', 'FinTech'],
+      'Production-grade trading platform with <100ms execution latency. Sustainable architecture featuring XGBoost/LSTM models (>=70% accuracy), Go execution engine, Redis streams, and a React/TypeScript dashboard with real-time analytics.',
+    tags: ['TypeScript', 'XGBoost', 'Redis', 'Microservices'],
+    features: [
+      'Multi-model support: XGBoost, LightGBM, LSTM (PyTorch).',
+      'High-performance Go execution engine (<100ms latency).',
+      'Redis Streams for low-latency message queuing.',
+      'Vectorized backtesting engine (vectorbt).',
+      'Real-time dashboard with candlestick charts and WebSocket updates.'
+    ],
     links: {
-      github: 'https://github.com/suman2k4',
+      github: 'https://github.com/suman2k4/AI-POWERED-AUTONOUMS-TRADING',
       live: '#'
     }
   },
   {
     title: 'Supply Chain Demand Forecasting',
     description:
-      'ARIMA, Prophet, and LSTM ensemble that improves forecast accuracy 15% and automates planning via Streamlit + Flask, reducing cycle time 40%.',
-    tags: ['Time Series', 'Streamlit', 'Forecasting'],
+      'End-to-end forecasting system using ARIMA, Prophet, and LSTM to predict product demand. Integrates MLflow for tracking experiments, DVC for data versioning, and a Streamlit frontend for interactive visualization.',
+    tags: ['DVC', 'Streamlit', 'Prophet', 'LSTM'],
+    features: [
+      'Ingests and preprocesses historical supply chain data.',
+      'Experiments with ARIMA, Prophet, and LSTM models.',
+      'Captures seasonality, trend, holidays, and volatility.',
+      'Interactive Streamlit frontend for forecast visualization.',
+      'Tracks experiments via MLflow and versions data with DVC.'
+    ],
     links: {
       github: 'https://github.com/suman2k4',
       live: '#'
