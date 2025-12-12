@@ -109,7 +109,7 @@ export default function HomeHero({ themeMode }) {
   return (
     <motion.section
       id="home"
-      className="relative flex min-h-[100vh] items-center justify-center overflow-hidden px-4"
+      className="relative flex min-h-[100vh] items-center justify-center overflow-hidden px-4 pt-16 md:pt-0"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
@@ -149,7 +149,7 @@ export default function HomeHero({ themeMode }) {
           {/* Top Label */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full border"
+            className="inline-flex items-center px-4 py-1.5 mb-2 md:mb-6 rounded-full border"
             style={{
               backgroundColor: 'rgba(10, 10, 20, 0.7)',
               borderColor: 'rgba(255, 255, 255, 0.12)',
@@ -180,7 +180,7 @@ export default function HomeHero({ themeMode }) {
           {/* Skill Chips */}
           <motion.div
             variants={itemVariants}
-            className="mt-8 flex flex-wrap justify-center md:justify-start gap-3 w-full"
+            className="mt-3 md:mt-8 flex flex-wrap justify-center md:justify-start gap-3 w-full"
             style={{ filter: chipShadow, transition: 'filter 0.5s ease' }}
           >
             {chips.map((chip, i) => (
@@ -198,7 +198,7 @@ export default function HomeHero({ themeMode }) {
           </motion.div>
 
           {/* Description */}
-          <motion.div variants={itemVariants} className="mt-5 font-normal w-full flex justify-center md:justify-start">
+          <motion.div variants={itemVariants} className="mt-3 md:mt-5 font-normal w-full flex justify-center md:justify-start">
             <PointerHighlight
               containerClassName="max-w-[700px] text-[15px] md:text-[16px] leading-loose text-center md:text-left px-6 pt-1 pb-5"
               rectangleClassName={
@@ -217,7 +217,7 @@ export default function HomeHero({ themeMode }) {
           {/* Buttons */}
           <motion.div
             variants={itemVariants}
-            className="mt-9 flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto"
+            className="mt-4 md:mt-9 flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto"
           >
             <motion.button
               onClick={() => window.open('/SumanS_Resume.pdf', '_blank')}
