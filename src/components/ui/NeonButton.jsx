@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 
-export default function NeonButton({ children, variant = 'primary', onClick, href }) {
+export default function NeonButton({ children, variant = 'primary', onClick, href, className, ...props }) {
   const baseClasses =
     'neon-button rounded-full border border-white/15 neon-button-shadow transition-all duration-300'
   const palette =
@@ -11,14 +11,27 @@ export default function NeonButton({ children, variant = 'primary', onClick, hre
 
   if (href) {
     return (
-      <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} href={href} onClick={onClick} className={`${baseClasses} ${palette}`}>
+      <motion.a
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
+        href={href}
+        onClick={onClick}
+        className={`${baseClasses} ${palette} ${className || ''}`}
+        {...props}
+      >
         {children}
       </motion.a>
     )
   }
 
   return (
-    <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={onClick} className={`${baseClasses} ${palette}`}>
+    <motion.button
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      onClick={onClick}
+      className={`${baseClasses} ${palette} ${className || ''}`}
+      {...props}
+    >
       {children}
     </motion.button>
   )

@@ -84,7 +84,7 @@ export const projects = [
       'Pytest suite with unit + integration coverage.'
     ],
     links: {
-      github: 'https://github.com/suman2k4/Listenerrr',
+      github: 'https://github.com/suman2k4/Listenerrr---Video-Lecture-to-Study-Notes-Bot',
       live: '#'
     }
   },
@@ -101,7 +101,7 @@ export const projects = [
       'Optional Streamlit UI for user-friendly interaction.'
     ],
     links: {
-      github: 'https://github.com/suman2k4/ytbriefai',
+      github: 'https://github.com/suman2k4/-YTBriefAI-YouTube-Video-Summarizer-with-SEO-Tags-Title-Generator',
       live: '#'
     }
   },
@@ -135,7 +135,7 @@ export const projects = [
       'Tracks experiments via MLflow and versions data with DVC.'
     ],
     links: {
-      github: 'https://github.com/suman2k4',
+      github: 'https://github.com/suman2k4/Supply-Chain-Demand-Forecasting',
       live: '#'
     }
   }
@@ -147,6 +147,7 @@ export const certifications = [
     issuer: 'Microsoft',
     year: '2024',
     link: '/Certificates/Azure%20AI%20Fundamentals.pdf',
+    image: '/Certificates/Azure AI Fundamentals.png',
     tags: ['AI', 'Cloud', 'Azure'],
     description:
       'Foundational certification on Azure AI spanning ML concepts, cognitive services, CV, NLP, and responsible AI practices.'
@@ -156,6 +157,7 @@ export const certifications = [
     issuer: 'IBM / Coursera',
     year: 'Nov 2025',
     link: '/Certificates/IBM%20Database%20and%20Sql.pdf',
+    image: '/Certificates/Databases and SQL for Data Science.png',
     tags: ['SQL', 'Data Science'],
     description:
       'Hands-on SQL labs covering filtering, joins, subqueries, views, DDL/DML, and schema design for analytics workloads.'
@@ -165,6 +167,7 @@ export const certifications = [
     issuer: 'IBM / Coursera',
     year: 'Nov 2025',
     link: '/Certificates/IBM%20Data%20Science%20Methodology.pdf',
+    image: '/Certificates/IBM data science methodology.png',
     tags: ['Data Science', 'Methodology'],
     description:
       'End-to-end CRISP-DM framing: define business problems, prep data, build, evaluate, and deploy models responsibly.'
@@ -174,6 +177,7 @@ export const certifications = [
     issuer: 'IBM / Coursera',
     year: 'Nov 2025',
     link: '/Certificates/IBM%20Tools%20for%20Data%20Science%20V2.pdf',
+    image: '/Certificates/Tools for Data Science V2.png',
     tags: ['Data Science Tools'],
     description:
       'Introduces professional DS tooling—Jupyter, Git, RStudio, Watson Studio, Anaconda—and collaborative workflows.'
@@ -183,6 +187,7 @@ export const certifications = [
     issuer: 'Google / Coursera',
     year: 'Jul 2025',
     link: '/Certificates/Google%20crash%20course%20on%20python.pdf',
+    image: '/Certificates/Google crash course on python.png',
     tags: ['Python', 'Programming Foundations'],
     description:
       'Python fundamentals: loops, functions, data structures, automation concepts, and scripting for beginner-to-intermediate builders.'
@@ -192,6 +197,7 @@ export const certifications = [
     issuer: 'IBM / Coursera',
     year: 'Jul 2025',
     link: '/Certificates/IBM%20Python%20for%20Data%20Science%20and%20AI.pdf',
+    image: '/Certificates/Python for Data Science and AI.png',
     tags: ['Python', 'Data Science', 'AI'],
     description:
       'Practical Python for DS & AI: pandas, NumPy, visualization, and core ML concepts for end-to-end workflows.'
@@ -201,6 +207,7 @@ export const certifications = [
     issuer: 'IBM / Coursera',
     year: 'Jul 2025',
     link: '/Certificates/IBM%20Python%20Project%20for%20Data%20Science.pdf',
+    image: '/Certificates/Python Project for Data Science.png',
     tags: ['Python', 'Project', 'Data Science'],
     description:
       'Capstone applying Python to collect, wrangle, analyze, and visualize real datasets to generate actionable insights.'
@@ -210,6 +217,7 @@ export const certifications = [
     issuer: 'Udemy',
     year: 'Apr 2025',
     link: '/Certificates/Udemy.pdf',
+    image: '/Certificates/Udemy Machine learning A-Z.png',
     tags: ['Machine Learning', 'AI', 'Python', 'R'],
     description:
       '43-hour masterclass spanning supervised + unsupervised ML, preprocessing, evaluation, clustering, automation, and GPT-integrated workflows.'
