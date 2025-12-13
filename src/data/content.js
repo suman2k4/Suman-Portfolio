@@ -84,7 +84,7 @@ export const projects = [
       'Pytest suite with unit + integration coverage.'
     ],
     links: {
-      github: 'https://github.com/suman2k4/Listenerrr',
+      github: 'https://github.com/suman2k4/Listenerrr---Video-Lecture-to-Study-Notes-Bot',
       live: '#'
     }
   },
@@ -101,7 +101,7 @@ export const projects = [
       'Optional Streamlit UI for user-friendly interaction.'
     ],
     links: {
-      github: 'https://github.com/suman2k4/ytbriefai',
+      github: 'https://github.com/suman2k4/-YTBriefAI-YouTube-Video-Summarizer-with-SEO-Tags-Title-Generator',
       live: '#'
     }
   },
@@ -135,7 +135,7 @@ export const projects = [
       'Tracks experiments via MLflow and versions data with DVC.'
     ],
     links: {
-      github: 'https://github.com/suman2k4',
+      github: 'https://github.com/suman2k4/Supply-Chain-Demand-Forecasting',
       live: '#'
     }
   }
